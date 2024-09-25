@@ -1,6 +1,6 @@
 ---
 title: "Problem Set 2: Data Wrangling"
-author: Your Name Here
+author: Harrison Crawford
 output: pdf_document
 ---
 
@@ -8,6 +8,11 @@ output: pdf_document
 ```{r setup, include = FALSE}
 options(width = 100)
 ```
+
+```{r}
+library(tidyverse)
+```
+
 
 ## Background
 
@@ -45,6 +50,25 @@ Use `dplyr` functions to create a table with the number of candidates in each ty
 
 ## Answer 1
 
+```{r}
+fb_ads <- read_csv("data/fb_ads.csv")
+library(dplyr)
+```
+# There are 7,014 rows, so there are 7,014 candidates. 
+
+```{r}
+library(knitr)
+```
+
+```{r}
+incumbency_table <- fb_ads |>
+  group_by(incumbency) |>
+  summarize(num_candidates = n())
+incumbency_table
+```
+```{r}
+knitr::kable(incumbency_table)
+```
 
 
 \newpage

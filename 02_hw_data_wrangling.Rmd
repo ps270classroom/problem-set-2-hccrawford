@@ -90,7 +90,7 @@ In the writeup, describe which type of candidate sponsored the most promoting ad
 ## Answer 2
 
 ```{r}
-fb_ads <- fb_ads |> 
+fb_ads_housesenate <- fb_ads |> 
   filter(office %in% c("US House", "US Senate"))
 ```
 
@@ -101,7 +101,7 @@ library(knitr)
 
 
 ```{r}
-party_incumbent_promote <- fb_ads |>
+party_incumbent_promote <- fb_ads_housesenate |>
   group_by(party, incumbency) |>
   summarize(promote_prop = mean(ad_tone_promote, na.rm = TRUE)) |>
   arrange(party, incumbency) |> as_tibble()
@@ -128,15 +128,15 @@ Create a histogram of this variable for just the US House races. Save the ggplot
 ## Answer 3
 
 ```{r}
-fb_ads1000000 <- fb_ads |> 
-  mutate(impressions_millions = impressions/1000000)
+fb_ads_millions <- fb_ads |> 
+  mutate(impressions_millions = impressions / 1000000)
 ```
 
 ```{r}
-plot_q3 <- fb_ads1000000 |>
+plot_q3 <- fb_ads_millions |>
   filter(office == "US House") |>
   ggplot(aes(x=impressions_millions)) +
-  geom_histogram() +
+  geom_histogram(binwidth = 1) +
   labs(x = "Impressions (in millions)", y = "Number of Candidates")
 print(plot_q3)
 ```
@@ -169,7 +169,7 @@ library(ggplot2)
 
 
 ```{r}
-fb_top_plot <- fb_ads1000000 |> 
+fb_top_plot <- fb_ads_millions |> 
   filter(office == "US House", ) |> 
   arrange(desc(impressions_millions)) |>
   slice_max(order_by = impressions_millions, n = 15) |> 

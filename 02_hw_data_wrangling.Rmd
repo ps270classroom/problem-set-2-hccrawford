@@ -170,7 +170,7 @@ library(ggplot2)
 
 ```{r}
 fb_top_plot <- fb_ads_millions |> 
-  filter(office == "US House", ) |> 
+  filter(office == "US House") |> 
   arrange(desc(impressions_millions)) |>
   slice_max(order_by = impressions_millions, n = 15) |> 
   ggplot(aes(x = impressions_millions, y = reorder(cand_name_last, impressions_millions))) +
